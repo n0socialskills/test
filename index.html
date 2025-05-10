@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Google Apps Script Webhook</title>
+</head>
+<body>
+  <h1>Send Test Data to Google Sheet</h1>
+  <button onclick="sendData()">Send Data</button>
+
+  <script>
+    function sendData() {
+      fetch("https://script.google.com/macros/s/AKfycbxY988UY3CTusqdlJmL0h2KiIQE5jVtUc2g5fEvTH4oDlDrjZ137T7kmTykJqwgirGrvA/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          sensor: "sensor_1",
+          vwc: 42.5,
+          pwec: 18.3,
+          temp: 22.7
+        })
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert("Response: " + data);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Error: " + error);
+      });
+    }
+  </script>
+</body>
+</html>
